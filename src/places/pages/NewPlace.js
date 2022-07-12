@@ -1,7 +1,7 @@
 import React from "react";
 import Input from "../../shared/components/FormElements/Input";
 
-import './NewPlace.css'
+import './NewPlace.css';
 
 const NewPlace = () => {
     return (
@@ -10,6 +10,8 @@ const NewPlace = () => {
                 element="input"
                 type="text"
                 label="title"
+                validators={[]}
+                errorText="Please Enter A Valid Title"
             />
         </form>
     )
