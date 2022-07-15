@@ -4,7 +4,7 @@ import Button from "../../shared/components/FormElements/Button";
 import Input from "../../shared/components/FormElements/Input";
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from "../../shared/utils/validators";
 
-import './UpdatePlace.css';
+import './PlaceForm.css';
 
 const DUMMY_PLACES = [
     {
@@ -47,7 +47,7 @@ const UpdatePlace = () => {
     }
 
     return (
-        <form>
+        <form className="place-form">
             <Input
                 id="title"
                 element="input"
