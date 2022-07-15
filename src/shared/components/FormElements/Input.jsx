@@ -63,6 +63,7 @@ const Input = props => {
             />
         ) : (
             <textarea
+                style={{ "resize": "none" }}
                 id={props.id}
                 rows={props.rows || 3}
                 onChange={changeHandler}
