@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import Card from '../../shared/components/UIElements/Card';
 import Input from '../../shared/components/FormElements/Input';
@@ -8,9 +8,12 @@ import { VALIDATOR_EMAIL, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../s
 import { useForm } from '../../shared/hooks/form-hook';
 
 import './Auth.css';
+import { AuthContext } from '../../shared/context/auth-context';
 
 const Auth = () => {
     const [isLoginMode, setIsLoginMode] = useState(true);
+
+    const auth = useContext(AuthContext);
 
     const [formState, inputHandler, setFormData] = useForm(
         {
@@ -46,6 +49,7 @@ const Auth = () => {
 
     const authSubmitHandler = event => {
         event.preventDefault();
+        auth.login();
         console.log(formState.inputs);
     };
 
@@ -83,7 +87,10 @@ const Auth = () => {
                     errorText="Please enter a valid password, at least 8 characters."
                     onInput={inputHandler}
                 />
-                <Button type="submit" disabled={!formState.isValid}>
+                <Button
+                    type="submit"
+                    disabled={!formState.isValid}
+                >
                     {isLoginMode ? 'LOGIN' : 'SIGNUP'}
                 </Button>
             </form>
