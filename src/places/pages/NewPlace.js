@@ -5,7 +5,7 @@ import Button from '../../shared/components/FormElements/Button';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../shared/utils/validators';
 
 import './PlaceForm.css';
-import { useForm } from '../../shared/components/hooks/form-hook';
+import { useForm } from '../../shared/hooks/form-hook';
 
 const NewPlace = () => {
     const [formState, inputHandler] = useForm({
