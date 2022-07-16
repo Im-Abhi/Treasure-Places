@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import NewPlace from './places/pages/NewPlace';
 import UpdatePlace from './places/pages/UpdatePlace';
@@ -20,7 +20,6 @@ const App = () => {
 		setIsLoggedIn(false);
 	});
 
-	useContext(AuthContext);
 	return (
 		<AuthContext.Provider value={{
 			isLoggedIn: isLoggedIn,
