@@ -88,7 +88,7 @@ const createPlace = async (req, res, next) => {
         .json({ place: createdPlace });
 }
 
-const updatePlace = (req, res, next) => {
+const updatePlace = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         throw new HttpError('Invalid inputs passed, please check your data.', 422);
@@ -98,18 +98,18 @@ const updatePlace = (req, res, next) => {
 
     const { title, description } = req.body;
 
-    const updatedPlace = { ...DUMMY_PLACES.find(p => p.id === placeId) };
-    const placeIndex = DUMMY_PLACES.findIndex(p => p.id == placeId);
+    let updatedPlace;
 
-    updatedPlace.title = title;
-    updatedPlace.description = description;
-
-    DUMMY_PLACES[placeIndex] = updatePlace;
+    try {
+        updatedPlace = await Place.findOneAndUpdate({ id: placeId }, { title, description }, { new: true });
+    } catch (error) {
+        return next(new HttpError('Could not update the place, please try again later', 500));
+    }
 
     res.status(200)
         .json({
             message: "Updated place successfully",
-            place: updatedPlace
+            place: updatedPlace.toObject({ getters: true })
         })
 }
 
