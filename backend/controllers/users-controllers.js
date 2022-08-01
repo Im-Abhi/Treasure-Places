@@ -52,12 +52,18 @@ const signup = async (req, res, next) => {
     res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 }
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
     const { email, password } = req.body;
 
-    const identifiedUser = DUMMY_USERS.find(u => u.email === email);
+    let existingUser;
 
-    if (!identifiedUser || identifiedUser.password !== password) {
+    try {
+        existingUser = await User.findOne({ email: email });
+    } catch (error) {
+        return next(new HttpError('Login failed, please try again later.', 500));
+    }
+
+    if (!existingUser || existingUser.password !== password) {
         return next(new HttpError('Incorrect Email or password', 401));
     }
 
