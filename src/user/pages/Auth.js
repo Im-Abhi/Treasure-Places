@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 
 import Card from '../../shared/components/UIElements/Card';
 import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
-import ErrorMdoal from '../../shared/components/UIElements/ErrorModal';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
 
@@ -92,7 +92,7 @@ const Auth = () => {
 
     return (
         <>
-            <ErrorMdoal error={error} onClear={clearError} />
+            <ErrorModal error={error} onClear={clearError} />
             <Card className="authentication">
                 {isLoading && <LoadingSpinner asOverlay />}
                 <h2>Login Required</h2>
