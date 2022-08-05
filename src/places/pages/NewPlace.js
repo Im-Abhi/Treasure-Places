@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 const NewPlace = () => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
-    const auth = useContext(AuthContext)
+    const auth = useContext(AuthContext);
     const navigate = useNavigate();
     const [formState, inputHandler] = useForm({
         title: {
