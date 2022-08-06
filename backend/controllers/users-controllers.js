@@ -37,7 +37,7 @@ const signup = async (req, res, next) => {
         name,
         email,
         password,
-        image: 'https://www.psdgraphics.com/file/user-icon.jpg',
+        image: req.file.path,
         places: []
     });
 

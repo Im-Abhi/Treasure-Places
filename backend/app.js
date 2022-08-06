@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const fs = require('fs');
 require('dotenv').config()
 
 const placesRoutes = require('./routes/places-routes');
@@ -29,8 +30,13 @@ app.use((req, res, next) => {
 })
 
 app.use((error, req, res, next) => {
+    if (req.file) {
+        fs.unlink(req.file.path, (err) => {
+            console.log(err);
+        });
+    }
     if (res.headerSent) {
-        next(error);
+        return next(error);
     }
     res.status(error.code || 500)
         .json({ message: error.message || 'An unknown error occured!' });
