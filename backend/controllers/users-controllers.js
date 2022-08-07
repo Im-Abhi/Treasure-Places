@@ -44,14 +44,14 @@ const signup = async (req, res, next) => {
     const createdUser = new User({
         name,
         email,
-        password,
+        password: hashedPassword,
         image: req.file.path,
         places: []
     });
 
     try {
         await createdUser.save();
-    } catch (error) {
+    } catch (err) {
         return next(new HttpError('Signing up failed, please try again later.', 500))
     }
 
@@ -69,7 +69,18 @@ const login = async (req, res, next) => {
         return next(new HttpError('Login failed, please try again later.', 500));
     }
 
-    if (!existingUser || existingUser.password !== password) {
+    if (!existingUser) {
+        return next(new HttpError('Incorrect Email or password', 401));
+    }
+
+    let isValidPassword = false;
+    try {
+        isValidPassword = await bcrypt.compare(password, existingUser.password);
+    } catch (err) {
+        return next(new HttpError('Incorrect Email or password', 500));
+    }
+
+    if (!isValidPassword) {
         return next(new HttpError('Incorrect Email or password', 401));
     }
 
