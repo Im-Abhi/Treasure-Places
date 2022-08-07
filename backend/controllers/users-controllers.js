@@ -1,4 +1,5 @@
 const { validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
 
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
@@ -31,6 +32,13 @@ const signup = async (req, res, next) => {
 
     if (existingUser) {
         return next(new HttpError('User already exists, please login instead.', 422));
+    }
+
+    let hashedPassword;
+    try {
+        hashedPassword = await bcrypt.hash(password, 15);
+    } catch (error) {
+        return next(new HttpError('Could not signup, please try again.', 500));
     }
 
     const createdUser = new User({
