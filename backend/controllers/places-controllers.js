@@ -61,7 +61,7 @@ const createPlace = async (req, res, next) => {
         description,
         address,
         location: coordinates,
-        image: 'https://raw.githubusercontent.com/motdotla/dotenv/master/dotenv.png',
+        image: req.file.path,
         creator
     });
 
