@@ -1,5 +1,7 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
@@ -52,10 +54,24 @@ const signup = async (req, res, next) => {
     try {
         await createdUser.save();
     } catch (err) {
-        return next(new HttpError('Signing up failed, please try again later.', 500))
+        return next(new HttpError('Signing up failed, please try again later.', 500));
     }
 
-    res.status(201).json({ user: createdUser.toObject({ getters: true }) });
+    let token;
+    try {
+        token = jwt.sign(
+            {
+                userId: createdUser.id,
+                email: createdUser.email
+            },
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: '2hr' }
+        );
+    } catch (err) {
+        return next(new HttpError('Signing up failed, please try again later.', 500));
+    }
+
+    res.status(201).json({ userId: createdUser.id, email: createdUser.email, token: token });
 }
 
 const login = async (req, res, next) => {
@@ -84,9 +100,24 @@ const login = async (req, res, next) => {
         return next(new HttpError('Incorrect Email or password', 401));
     }
 
+    let token;
+    try {
+        token = jwt.sign(
+            {
+                userId: createdUser.id,
+                email: createdUser.email
+            },
+            process.env.JWT_SECRET_KEY,
+            { expiresIn: '2hr' }
+        );
+    } catch (err) {
+        return next(new HttpError('Login failed, please try again later.', 500));
+    }
+
     res.json({
-        message: 'Logged in!',
-        user: existingUser.toObject({ getters: true })
+        userId: existingUser.id,
+        email: existingUser.email,
+        token: token
     });
 }
 
