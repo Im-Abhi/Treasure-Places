@@ -13,7 +13,7 @@ import './PlaceItem.css';
 const PlaceItem = (props) => {
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-    const { userId } = useContext(AuthContext);
+    const { userId, token } = useContext(AuthContext);
 
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -32,7 +32,11 @@ const PlaceItem = (props) => {
         try {
             await sendRequest(
                 `http://localhost:5000/api/places/${props.id}`,
-                'DELETE'
+                'DELETE',
+                null,
+                {
+                    Authorization: 'Bearer ' + token
+                }
             );
             props.onDelete(props.id);
         } catch (err) {
