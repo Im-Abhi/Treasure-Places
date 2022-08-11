@@ -20,9 +20,16 @@
 - The app uses [Google Maps API](https://developers.google.com/maps/apis-by-platform) to get the loaction of places entered by users.
 - Google Maps API provides google maps which can be embedded in the website with target location and we can also extract the geo-coordinates of the location.
 
+## Design
+- It is possible that you may find the UI not that soothing.
+- It is made as minimal as possible with css only no external library used for styling it.
+
 <p align="center">
-<img src="https://github.com/im-abhi/mern-project/blob/master/demo.gif" />
+<img src="https://user-images.githubusercontent.com/86161191/184145492-71c16ced-8ea7-42a0-821e-78e4c089e6dc.png" width="90%"/>
 </p>
+<!--
+![image](https://user-images.githubusercontent.com/86161191/184145492-71c16ced-8ea7-42a0-821e-78e4c089e6dc.png)
+-->
 
 ## Built With 🛠
 
