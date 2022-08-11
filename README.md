@@ -10,7 +10,7 @@
   <p align="center">
     <a href="">View Deployment</a>
     ·
-    <a href="https://github.com/im-abhi/mern-project/issues">Report Bug</a>
+    <a href="https://github.com/im-abhi/treasure-places/issues">Report Bug</a>
   </p>
 </div>
 
@@ -21,6 +21,7 @@
 - Google Maps API provides google maps which can be embedded in the website with target location and we can also extract the geo-coordinates of the location.
 
 ## Design
+
 - It is possible that you may find the UI not that soothing.
 - It is made as minimal as possible with css only no external library used for styling it.
 
