@@ -1,4 +1,4 @@
-# MERN-Project
+# Treasure-Places
 
 <div align="center">
   <a>
