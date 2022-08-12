@@ -1,4 +1,4 @@
-# Treasure-Places
+# Treasure-Places [![Netlify Status](https://api.netlify.com/api/v1/badges/80684a92-729e-4f63-b3d1-3692136cabce/deploy-status)](https://app.netlify.com/sites/treasure-places/deploys)
 
 <div align="center">
   <a>
@@ -10,7 +10,7 @@
   <p align="center">
     <a href="">View Deployment</a>
     ·
-    <a href="https://github.com/im-abhi/treasure-places/issues">Report Bug</a>
+    <a href="https://treasure-places.netlify.app/">Report Bug</a>
   </p>
 </div>
 
@@ -78,7 +78,14 @@ yarn install
 yarn start
 ```
 
-5. Starting the backend server
+5. Inside backend folder create a new file named `.env` which will hold the environment variables
+![image](https://user-images.githubusercontent.com/86161191/184349365-df72fbe2-bfc6-49a9-8173-70e02253dcf8.png)
+here 
+- MONGO_URI -> the mongodb cloud database url.
+- JWT_SECRET_KEY -> the string secret used in creating the jwt tokens.
+- API_KEY -> Google maps api key
+
+6. Starting the backend server
 
 ```
 cd backend
