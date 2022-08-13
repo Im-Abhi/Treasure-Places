@@ -14,12 +14,20 @@ const getPlaceById = async (req, res, next) => {
     let place;
     try {
         place = await Place.findById(placeId);
-    } catch (error) {
-        return next(new HttpError('Something went wrong could not find a place.', 500));
+    } catch (err) {
+        const error = new HttpError(
+            'Something went wrong, could not find a place.',
+            500
+        );
+        return next(error);
     }
 
     if (!place) {
-        return next(new HttpError('Could not find a place for the provided id.', 404));
+        const error = new HttpError(
+            'Could not find place for the provided id.',
+            404
+        );
+        return next(error);
     }
 
     res.json({ place: place.toObject({ getters: true }) });
@@ -32,13 +40,19 @@ const getPlacesByUserId = async (req, res, next) => {
     let userWithPlaces;
     try {
         userWithPlaces = await User.findById(userId).populate('places');
-    } catch (error) {
-        return next(new HttpError('Fetching places failed, please try again later', 500));
+    } catch (err) {
+        const error = new HttpError(
+            'Fetching places failed, please try again later.',
+            500
+        );
+        return next(error);
     }
 
     // if (!places || places.length === 0) {
     if (!userWithPlaces || userWithPlaces.places.length === 0) {
-        return next(new HttpError('Could not find places for the provided user id.', 404));
+        return next(
+            new HttpError('Could not find places for the provided user id.', 404)
+        );
     }
 
     res.json({
@@ -119,10 +133,6 @@ const updatePlace = async (req, res, next) => {
     const { title, description } = req.body;
     const placeId = req.params.pid;
 
-    if (place.creator.toString() !== req.userData.userId) {
-        return next(new HttpError('You are not allowed to edit this place.', 401));
-    }
-
     let place;
     try {
         place = await Place.findById(placeId);
@@ -131,6 +141,11 @@ const updatePlace = async (req, res, next) => {
             'Something went wrong, could not update place.',
             500
         );
+        return next(error);
+    }
+
+    if (place.creator.toString() !== req.userData.userId) {
+        const error = new HttpError('You are not allowed to edit this place.', 401);
         return next(error);
     }
 
