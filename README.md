@@ -8,9 +8,9 @@
 <h4 align="center">Share your favourite places with others built with MERN-stack</h4>
 
   <p align="center">
-    <a href="">View Deployment</a>
+    <a href="https://treasure-places.netlify.app/">View Deployment</a>
     ·
-    <a href="https://treasure-places.netlify.app/">Report Bug</a>
+    <a href="https://github.com/Im-Abhi/Treasure-Places/issues">Report Bug</a>
   </p>
 </div>
 
@@ -105,6 +105,19 @@ Don't forget to give the project a star!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [ ] Change image uploads from local to some cloud storage.
+
+<!--
+See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+-->
+
+
 
 ## License
 
