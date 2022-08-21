@@ -1,65 +1,72 @@
-import { useEffect, useRef, useState } from "react";
-import Button from "./Button";
+import { useEffect, useState } from "react";
 
 import './ImageUpload.css';
 
 const ImageUpload = (props) => {
-    const [file, setFile] = useState();
     const [previewUrl, setPreviewUrl] = useState();
     const [isValid, setIsValid] = useState(false);
+    const [image, setImage] = useState();
 
-    const filePickerRef = useRef();
+    function showUploadWidget() {
+        window.cloudinary.openUploadWidget({
+            cloudName: `${process.env.REACT_APP_CLOUD_NAME}`,
+            uploadPreset: `${process.env.REACT_APP_PRESET}`,
+            sources: [
+                "local",
+                "camera",
+                "url",
+            ],
+            showAdvancedOptions: false,
+            cropping: true,
+            multiple: false,
+            defaultSource: "local",
+            styles: {
+                palette: {
+                    window: "#FFFFFF",
+                    windowBorder: "#90A0B3",
+                    tabIcon: "#0078FF",
+                    menuIcons: "#5A616A",
+                    textDark: "#000000",
+                    textLight: "#FFFFFF",
+                    link: "#0078FF",
+                    action: "#FF620C",
+                    inactiveTabIcon: "#0E2F5A",
+                    error: "#F44235",
+                    inProgress: "#0078FF",
+                    complete: "#20B832",
+                    sourceBg: "#E4EBF1"
+                },
+                fonts: {
+                    default: null,
+                    "'Fira Sans', sans-serif": {
+                        url: "https://fonts.googleapis.com/css?family=Fira+Sans",
+                        active: true
+                    }
+                }
+            }
+        }, (err, result) => {
+            if (!err && result?.event === 'success') {
+                setImage(result.info.secure_url);
+                setIsValid(true);
+            }
+        });
+    }
 
     useEffect(() => {
-        if (!file) {
-            return;
+        if (image) {
+            setPreviewUrl(image);
         }
-
-        const fileReader = new FileReader();
-        fileReader.onload = () => {
-            setPreviewUrl(fileReader.result);
-        };
-        fileReader.readAsDataURL(file);
-
-    }, [file]);
-
-    const pickedHandler = (e) => {
-        let pickedFile;
-        let fileIsValid = isValid;
-        if (e.target.files && e.target.files.length === 1) {
-            pickedFile = e.target.files[0];
-            setFile(pickedFile);
-            setIsValid(true);
-            fileIsValid = true;
-        } else {
-            setIsValid(false);
-            fileIsValid = false;
-        }
-        props.onInput(props.id, pickedFile, fileIsValid);
-    }
-
-    const pickImageHandler = () => {
-        filePickerRef.current.click();
-    }
+    }, [image]);
 
     return (
         <>
             <div className="form-control">
-                <input
-                    ref={filePickerRef}
-                    id={props.id}
-                    name=""
-                    type="file"
-                    style={{ display: 'none' }}
-                    accept=".jpg, .jpeg, .png"
-                    onChange={pickedHandler}
-                />
                 <div className={`image-upload ${props.center && 'center'}`}>
                     <div className="image-upload__preview">
                         {previewUrl && <img src={previewUrl} alt="preview" />}
                         {!previewUrl && <p>Please pick and image.</p>}
                     </div>
-                    <Button type="button" onClick={pickImageHandler}>PICK IMAGE</Button>
+                    <button className="button" type="button" onClick={showUploadWidget}>PICK IMAGE</button>
                 </div>
                 {!isValid && <p>{props.errorText}</p>}
             </div>
