@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import './ImageUpload.css';
 
 const ImageUpload = (props) => {
+    const { onInput, id } = props;
     const [previewUrl, setPreviewUrl] = useState();
     const [isValid, setIsValid] = useState(false);
     const [image, setImage] = useState();
@@ -48,6 +49,7 @@ const ImageUpload = (props) => {
             if (!err && result?.event === 'success') {
                 setImage(result.info.secure_url);
                 setIsValid(true);
+                onInput(props.id, result.info.secure_url, true);
             }
         });
     }
@@ -55,8 +57,10 @@ const ImageUpload = (props) => {
     useEffect(() => {
         if (image) {
             setPreviewUrl(image);
+            setIsValid(true);
+            onInput(id, image, true);
         }
-    }, [image]);
+    }, [image, onInput, id]);
 
     return (
         <>

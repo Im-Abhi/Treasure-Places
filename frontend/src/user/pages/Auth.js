@@ -64,9 +64,8 @@ const Auth = () => {
         setIsLoginMode(prevMode => !prevMode);
     };
 
-    const authSubmitHandler = async event => {
+    const authSubmitHandler = async (event) => {
         event.preventDefault();
-
         if (isLoginMode) {
             try {
                 const responseData = await sendRequest(
@@ -84,16 +83,11 @@ const Auth = () => {
             } catch (err) { }
         } else {
             try {
-                const formData = new FormData();
-                formData.append('email', formState.inputs.email.value);
-                formData.append('name', formState.inputs.name.value);
-                formData.append('password', formState.inputs.password.value);
-                formData.append('image', formState.inputs.image.value);
                 const responseData = await sendRequest(
                     `${process.env.REACT_APP_BACKEND_URL}/users/signup`,
                     'POST',
                     JSON.stringify({
-                        name: formState.inputs.name.valu,
+                        name: formState.inputs.name.value,
                         email: formState.inputs.email.value,
                         password: formState.inputs.password.value,
                         image: formState.inputs.image.value
