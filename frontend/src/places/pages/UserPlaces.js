@@ -35,7 +35,7 @@ const UserPlaces = () => {
                 </div>
             }
             <ErrorModal error={error} onClear={clearError} />
-            {!isLoading && loadedPlaces &&
+            {!isLoading &&
                 <PlaceList items={loadedPlaces} onDeletePlace={placeDeleteHandler} />}
         </>
     )
