@@ -12,4 +12,11 @@
 
 .authentication form {
     margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem 1rem;
+}
+
+.signup {
+    max-width: 30rem;
 }

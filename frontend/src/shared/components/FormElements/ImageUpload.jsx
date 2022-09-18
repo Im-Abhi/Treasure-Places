@@ -68,7 +68,7 @@ const ImageUpload = (props) => {
                 <div className={`image-upload ${props.center && 'center'}`}>
                     <div className="image-upload__preview">
                         {previewUrl && <img src={previewUrl} alt="preview" />}
-                        {!previewUrl && <p>Please pick and image.</p>}
+                        {!previewUrl && <p>Please pick an image.</p>}
                     </div>
                     <button className="button" type="button" onClick={showUploadWidget}>PICK IMAGE</button>
                 </div>
